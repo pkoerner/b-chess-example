@@ -1,0 +1,10 @@
+{
+    "id": "chess",
+    "template": "index.html",
+    "model": "../b/test_2.mch",
+    "groovy": "script.groovy",
+    "autoOpen": [
+        "CurrentTrace",
+        "Events"
+    ]
+}

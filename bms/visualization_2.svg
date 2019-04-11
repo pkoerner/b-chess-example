@@ -1,0 +1,157 @@
+<svg width="900" height="900" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="board">
+  <ellipse id="queen" cx="25" cy="25" rx="20" ry="20" class="promotion" style="visibility: hidden" fill="red" stroke="white" onClick="setFigure(evt)"/>
+  <ellipse id="rook" cx="75" cy="25" rx="20" ry="20" class="promotion" style="visibility: hidden" fill="red" stroke="white" onClick="setFigure(evt)"/>
+  <ellipse id="knight" cx="25" cy="75" rx="20" ry="20" class="promotion" style="visibility: hidden" fill="red" stroke="white" onClick="setFigure(evt)"/>
+  <ellipse id="bishop" cx="75" cy="75" rx="20" ry="20" class="promotion" style="visibility: hidden" fill="red" stroke="white" onClick="setFigure(evt)"/>
+  <text x="20" y="30" fill="white" class="text">Q</text>
+  <text x="70" y="30" fill="white" class="text">R</text>
+  <text x="20" y="80" fill="white" class="text">K</text>
+  <text x="70" y="80" fill="white" class="text">B</text>
+  <text x="150" y="50" font-size="40" fill="black">a</text>
+  <text x="250" y="50" font-size="40" fill="black">b</text>
+  <text x="350" y="50" font-size="40" fill="black">c</text>
+  <text x="450" y="50" font-size="40" fill="black">d</text>
+  <text x="550" y="50" font-size="40" fill="black">e</text>
+  <text x="650" y="50" font-size="40" fill="black">f</text>
+  <text x="750" y="50" font-size="40" fill="black">g</text>
+  <text x="850" y="50" font-size="40" fill="black">h</text>
+  <text x="50" y="150" font-size="40" fill="black">8</text>
+  <text x="50" y="250" font-size="40" fill="black">7</text>
+  <text x="50" y="350" font-size="40" fill="black">6</text>
+  <text x="50" y="450" font-size="40" fill="black">5</text>
+  <text x="50" y="550" font-size="40" fill="black">4</text>
+  <text x="50" y="650" font-size="40" fill="black">3</text>
+  <text x="50" y="750" font-size="40" fill="black">2</text>
+  <text x="50" y="850" font-size="40" fill="black">1</text>
+  <rect id="0-1" class="rect" height="100" width="100" y="800" x="100" stroke="black" fill="black"/>
+  <rect id="1-1" class="rect" height="100" width="100" y="800" x="200" stroke="black" fill="white"/>
+  <rect id="2-1" class="rect" height="100" width="100" y="800" x="300" stroke="black" fill="black"/>
+  <rect id="3-1" class="rect" height="100" width="100" y="800" x="400" stroke="black" fill="white"/>
+  <rect id="4-1" class="rect" height="100" width="100" y="800" x="500" stroke="black" fill="black"/>
+  <rect id="5-1" class="rect" height="100" width="100" y="800" x="600" stroke="black" fill="white"/>
+  <rect id="6-1" class="rect" height="100" width="100" y="800" x="700" stroke="black" fill="black"/>
+  <rect id="7-1" class="rect" height="100" width="100" y="800" x="800" stroke="black" fill="white"/>
+  <rect id="8-1" class="rect" height="100" width="100" y="700" x="100" stroke="black" fill="white"/>
+  <rect id="9-1" class="rect" height="100" width="100" y="700" x="200" stroke="black" fill="black"/>
+  <rect id="10-1" class="rect" height="100" width="100" y="700" x="300" stroke="black" fill="white"/>
+  <rect id="11-1" class="rect" height="100" width="100" y="700" x="400" stroke="black" fill="black"/>
+  <rect id="12-1" class="rect" height="100" width="100" y="700" x="500" stroke="black" fill="white"/>
+  <rect id="13-1" class="rect" height="100" width="100" y="700" x="600" stroke="black" fill="black"/>
+  <rect id="14-1" class="rect" height="100" width="100" y="700" x="700" stroke="black" fill="white"/>
+  <rect id="15-1" class="rect" height="100" width="100" y="700" x="800" stroke="black" fill="black"/>
+  <rect id="16-1" class="rect" height="100" width="100" y="600" x="100" stroke="black" fill="black"/>
+  <rect id="17-1" class="rect" height="100" width="100" y="600" x="200" stroke="black" fill="white"/>
+  <rect id="18-1" class="rect" height="100" width="100" y="600" x="300" stroke="black" fill="black"/>
+  <rect id="19-1" class="rect" height="100" width="100" y="600" x="400" stroke="black" fill="white"/>
+  <rect id="20-1" class="rect" height="100" width="100" y="600" x="500" stroke="black" fill="black"/>
+  <rect id="21-1" class="rect" height="100" width="100" y="600" x="600" stroke="black" fill="white"/>
+  <rect id="22-1" class="rect" height="100" width="100" y="600" x="700" stroke="black" fill="black"/>
+  <rect id="23-1" class="rect" height="100" width="100" y="600" x="800" stroke="black" fill="white"/>
+  <rect id="24-1" class="rect" height="100" width="100" y="500" x="100" stroke="black" fill="white"/>
+  <rect id="25-1" class="rect" height="100" width="100" y="500" x="200" stroke="black" fill="black"/>
+  <rect id="26-1" class="rect" height="100" width="100" y="500" x="300" stroke="black" fill="white"/>
+  <rect id="27-1" class="rect" height="100" width="100" y="500" x="400" stroke="black" fill="black"/>
+  <rect id="28-1" class="rect" height="100" width="100" y="500" x="500" stroke="black" fill="white"/>
+  <rect id="29-1" class="rect" height="100" width="100" y="500" x="600" stroke="black" fill="black"/>
+  <rect id="30-1" class="rect" height="100" width="100" y="500" x="700" stroke="black" fill="white"/>
+  <rect id="31-1" class="rect" height="100" width="100" y="500" x="800" stroke="black" fill="black"/>
+  <rect id="32-1" class="rect" height="100" width="100" y="400" x="100" stroke="black" fill="black"/>
+  <rect id="33-1" class="rect" height="100" width="100" y="400" x="200" stroke="black" fill="white"/>
+  <rect id="34-1" class="rect" height="100" width="100" y="400" x="300" stroke="black" fill="black"/>
+  <rect id="35-1" class="rect" height="100" width="100" y="400" x="400" stroke="black" fill="white"/>
+  <rect id="36-1" class="rect" height="100" width="100" y="400" x="500" stroke="black" fill="black"/>
+  <rect id="37-1" class="rect" height="100" width="100" y="400" x="600" stroke="black" fill="white"/>
+  <rect id="38-1" class="rect" height="100" width="100" y="400" x="700" stroke="black" fill="black"/>
+  <rect id="39-1" class="rect" height="100" width="100" y="400" x="800" stroke="black" fill="white"/>
+  <rect id="40-1" class="rect" height="100" width="100" y="300" x="100" stroke="black" fill="white"/>
+  <rect id="41-1" class="rect" height="100" width="100" y="300" x="200" stroke="black" fill="black"/>
+  <rect id="42-1" class="rect" height="100" width="100" y="300" x="300" stroke="black" fill="white"/>
+  <rect id="43-1" class="rect" height="100" width="100" y="300" x="400" stroke="black" fill="black"/>
+  <rect id="44-1" class="rect" height="100" width="100" y="300" x="500" stroke="black" fill="white"/>
+  <rect id="45-1" class="rect" height="100" width="100" y="300" x="600" stroke="black" fill="black"/>
+  <rect id="46-1" class="rect" height="100" width="100" y="300" x="700" stroke="black" fill="white"/>
+  <rect id="47-1" class="rect" height="100" width="100" y="300" x="800" stroke="black" fill="black"/>
+  <rect id="48-1" class="rect" height="100" width="100" y="200" x="100" stroke="black" fill="black"/>
+  <rect id="49-1" class="rect" height="100" width="100" y="200" x="200" stroke="black" fill="white"/>
+  <rect id="50-1" class="rect" height="100" width="100" y="200" x="300" stroke="black" fill="black"/>
+  <rect id="51-1" class="rect" height="100" width="100" y="200" x="400" stroke="black" fill="white"/>
+  <rect id="52-1" class="rect" height="100" width="100" y="200" x="500" stroke="black" fill="black"/>
+  <rect id="53-1" class="rect" height="100" width="100" y="200" x="600" stroke="black" fill="white"/>
+  <rect id="54-1" class="rect" height="100" width="100" y="200" x="700" stroke="black" fill="black"/>
+  <rect id="55-1" class="rect" height="100" width="100" y="200" x="800" stroke="black" fill="white"/>
+  <rect id="56-1" class="rect" height="100" width="100" y="100" x="100" stroke="black" fill="white"/>
+  <rect id="57-1" class="rect" height="100" width="100" y="100" x="200" stroke="black" fill="black"/>
+  <rect id="58-1" class="rect" height="100" width="100" y="100" x="300" stroke="black" fill="white"/>
+  <rect id="59-1" class="rect" height="100" width="100" y="100" x="400" stroke="black" fill="black"/>
+  <rect id="60-1" class="rect" height="100" width="100" y="100" x="500" stroke="black" fill="white"/>
+  <rect id="61-1" class="rect" height="100" width="100" y="100" x="600" stroke="black" fill="black"/>
+  <rect id="62-1" class="rect" height="100" width="100" y="100" x="700" stroke="black" fill="white"/>
+  <rect id="63-1" class="rect" height="100" width="100" y="100" x="800" stroke="black" fill="black"/>
+  <image xlink:href="" class="image" id="0_2" onClick="click(evt)" height="100" width="100" y="800" x="100"/>
+  <image xlink:href="" class="image" id="1_2" onClick="click(evt)" height="100" width="100" y="800" x="200"/>
+  <image xlink:href="" class="image" id="2_2" onClick="click(evt)" height="100" width="100" y="800" x="300"/>
+  <image xlink:href="" class="image" id="3_2" onClick="click(evt)" height="100" width="100" y="800" x="400"/>
+  <image xlink:href="" class="image" id="4_2" onClick="click(evt)" height="100" width="100" y="800" x="500"/>
+  <image xlink:href="" class="image" id="5_2" onClick="click(evt)" height="100" width="100" y="800" x="600"/>
+  <image xlink:href="" class="image" id="6_2" onClick="click(evt)" height="100" width="100" y="800" x="700"/>
+  <image xlink:href="" class="image" id="7_2" onClick="click(evt)" height="100" width="100" y="800" x="800"/>
+  <image xlink:href="" class="image" id="8_2" onClick="click(evt)" height="100" width="100" y="700" x="100"/>
+  <image xlink:href="" class="image" id="9_2" onClick="click(evt)" height="100" width="100" y="700" x="200"/>
+  <image xlink:href="" class="image" id="10_2" onClick="click(evt)" height="100" width="100" y="700" x="300"/>
+  <image xlink:href="" class="image" id="11_2" onClick="click(evt)" height="100" width="100" y="700" x="400"/>
+  <image xlink:href="" class="image" id="12_2" onClick="click(evt)" height="100" width="100" y="700" x="500"/>
+  <image xlink:href="" class="image" id="13_2" onClick="click(evt)" height="100" width="100" y="700" x="600"/>
+  <image xlink:href="" class="image" id="14_2" onClick="click(evt)" height="100" width="100" y="700" x="700"/>
+  <image xlink:href="" class="image" id="15_2" onClick="click(evt)" height="100" width="100" y="700" x="800"/>
+  <image xlink:href="" class="image" id="16_2" onClick="click(evt)" height="100" width="100" y="600" x="100"/>
+  <image xlink:href="" class="image" id="17_2" onClick="click(evt)" height="100" width="100" y="600" x="200"/>
+  <image xlink:href="" class="image" id="18_2" onClick="click(evt)" height="100" width="100" y="600" x="300"/>
+  <image xlink:href="" class="image" id="19_2" onClick="click(evt)" height="100" width="100" y="600" x="400"/>
+  <image xlink:href="" class="image" id="20_2" onClick="click(evt)" height="100" width="100" y="600" x="500"/>
+  <image xlink:href="" class="image" id="21_2" onClick="click(evt)" height="100" width="100" y="600" x="600"/>
+  <image xlink:href="" class="image" id="22_2" onClick="click(evt)" height="100" width="100" y="600" x="700"/>
+  <image xlink:href="" class="image" id="23_2" onClick="click(evt)" height="100" width="100" y="600" x="800"/>
+  <image xlink:href="" class="image" id="24_2" onClick="click(evt)" height="100" width="100" y="500" x="100"/>
+  <image xlink:href="" class="image" id="25_2" onClick="click(evt)" height="100" width="100" y="500" x="200"/>
+  <image xlink:href="" class="image" id="26_2" onClick="click(evt)" height="100" width="100" y="500" x="300"/>
+  <image xlink:href="" class="image" id="27_2" onClick="click(evt)" height="100" width="100" y="500" x="400"/>
+  <image xlink:href="" class="image" id="28_2" onClick="click(evt)" height="100" width="100" y="500" x="500"/>
+  <image xlink:href="" class="image" id="29_2" onClick="click(evt)" height="100" width="100" y="500" x="600"/>
+  <image xlink:href="" class="image" id="30_2" onClick="click(evt)" height="100" width="100" y="500" x="700"/>
+  <image xlink:href="" class="image" id="31_2" onClick="click(evt)" height="100" width="100" y="500" x="800"/>
+  <image xlink:href="" class="image" id="32_2" onClick="click(evt)" height="100" width="100" y="400" x="100"/>
+  <image xlink:href="" class="image" id="33_2" onClick="click(evt)" height="100" width="100" y="400" x="200"/>
+  <image xlink:href="" class="image" id="34_2" onClick="click(evt)" height="100" width="100" y="400" x="300"/>
+  <image xlink:href="" class="image" id="35_2" onClick="click(evt)" height="100" width="100" y="400" x="400"/>
+  <image xlink:href="" class="image" id="36_2" onClick="click(evt)" height="100" width="100" y="400" x="500"/>
+  <image xlink:href="" class="image" id="37_2" onClick="click(evt)" height="100" width="100" y="400" x="600"/>
+  <image xlink:href="" class="image" id="38_2" onClick="click(evt)" height="100" width="100" y="400" x="700"/>
+  <image xlink:href="" class="image" id="39_2" onClick="click(evt)" height="100" width="100" y="400" x="800"/>
+  <image xlink:href="" class="image" id="40_2" onClick="click(evt)" height="100" width="100" y="300" x="100"/>
+  <image xlink:href="" class="image" id="41_2" onClick="click(evt)" height="100" width="100" y="300" x="200"/>
+  <image xlink:href="" class="image" id="42_2" onClick="click(evt)" height="100" width="100" y="300" x="300"/>
+  <image xlink:href="" class="image" id="43_2" onClick="click(evt)" height="100" width="100" y="300" x="400"/>
+  <image xlink:href="" class="image" id="44_2" onClick="click(evt)" height="100" width="100" y="300" x="500"/>
+  <image xlink:href="" class="image" id="45_2" onClick="click(evt)" height="100" width="100" y="300" x="600"/>
+  <image xlink:href="" class="image" id="46_2" onClick="click(evt)" height="100" width="100" y="300" x="700"/>
+  <image xlink:href="" class="image" id="47_2" onClick="click(evt)" height="100" width="100" y="300" x="800"/>
+  <image xlink:href="" class="image" id="48_2" onClick="click(evt)" height="100" width="100" y="200" x="100"/>
+  <image xlink:href="" class="image" id="49_2" onClick="click(evt)" height="100" width="100" y="200" x="200"/>
+  <image xlink:href="" class="image" id="50_2" onClick="click(evt)" height="100" width="100" y="200" x="300"/>
+  <image xlink:href="" class="image" id="51_2" onClick="click(evt)" height="100" width="100" y="200" x="400"/>
+  <image xlink:href="" class="image" id="52_2" onClick="click(evt)" height="100" width="100" y="200" x="500"/>
+  <image xlink:href="" class="image" id="53_2" onClick="click(evt)" height="100" width="100" y="200" x="600"/>
+  <image xlink:href="" class="image" id="54_2" onClick="click(evt)" height="100" width="100" y="200" x="700"/>
+  <image xlink:href="" class="image" id="55_2" onClick="click(evt)" height="100" width="100" y="200" x="800"/>
+  <image xlink:href="" class="image" id="56_2" onClick="click(evt)" height="100" width="100" y="100" x="100"/>
+  <image xlink:href="" class="image" id="57_2" onClick="click(evt)" height="100" width="100" y="100" x="200"/>
+  <image xlink:href="" class="image" id="58_2" onClick="click(evt)" height="100" width="100" y="100" x="300"/>
+  <image xlink:href="" class="image" id="59_2" onClick="click(evt)" height="100" width="100" y="100" x="400"/>
+  <image xlink:href="" class="image" id="60_2" onClick="click(evt)" height="100" width="100" y="100" x="500"/>
+  <image xlink:href="" class="image" id="61_2" onClick="click(evt)" height="100" width="100" y="100" x="600"/>
+  <image xlink:href="" class="image" id="62_2" onClick="click(evt)" height="100" width="100" y="100" x="700"/>
+  <image xlink:href="" class="image" id="63_2" onClick="click(evt)" height="100" width="100" y="100" x="800"/>
+  </g>
+</svg>

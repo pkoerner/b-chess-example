@@ -1,0 +1,87 @@
+\documentclass[final]{llncs}
+
+
+%%%% Compression Light+: LNCS margin reduced by +/-7mm along all edges (RG).
+%\textwidth=124mm   % LNCS: 122mm
+%\textheight=194mm  % LNCS: 193mm
+%\topmargin=19mm
+%\headheight=0mm
+%\headsep=0mm
+%\oddsidemargin=11mm
+%\evensidemargin=11mm
+
+%section name
+\usepackage{makeidx}  % allows for index generation
+\usepackage{amsmath}
+\usepackage[hyphens]{url}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{microtype}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[export]{adjustbox} %[2011/08/13]
+\usepackage{bsymb}
+\usepackage{amsmath}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{skak} % for Chess
+
+\newcommand{\prob}{{\sc ProB}}
+\newcommand{\probrepl}[2][silent]{repl} %{#2}
+\newcommand{\probexpr}[2][silent]{expr} %{#2}
+\newcommand{\probtable}[3][no]{table} %{#2}
+\newcommand{\probdot}[3][File]{dot} %{#3}
+\newcommand{\probif}[3]{if} %{if #1 then #2 else #3}
+\newcommand{\probfor}[3]{for} %{for #1 in #2 do #3}
+
+\begin{document}
+%
+
+
+\pagestyle{empty}  % headings switches on printing of running heads
+
+\addtocmark{ProB Latex} % additional mark in the TOC
+%
+\mainmatter              % start of the contributions
+%
+
+\title{ProB Latex Visualisation of Chess State}
+% \subtitle{B and ProB}
+%
+\titlerunning{ProB Chess}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+%\author{ }
+%
+%\authorrunning{ } % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+%\tocauthor{}
+%
+\institute{Institut f\"{u}r Informatik, Heinrich-Heine-Universit\"{a}t D\"{u}sseldorf%
+ \\
+  Universit\"{a}tsstr. 1, D-40225 D\"{u}sseldorf
+ }
+
+\maketitle              % typeset the title of the contribution
+
+
+\section{Overview}
+
+ 
+
+\begin{center}
+\begin{tabular}{\probfor{ii}{1..8}{|c}|}
+\hline
+\probfor{ii}{1..8}{  \probfor{jj}{1..8}{  \probif{(ii,jj):dom(white)}{\WhiteQueenOnWhite}{\probif{(ii,jj):dom(black)}{\BlackQueenOnWhite}{\BlackEmptySquare}} \probif{jj<8}{&}{\\}} \hline}
+\end{tabular}
+\end{center}
+
+
+
+
+
+\end{document}

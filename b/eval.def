@@ -1,0 +1,182 @@
+/*
+  Title: A formal-based chess engine for ProB
+  Author: Phillip Höfges
+  Heinrich-Heine-Universität Düsseldorf
+  Lehrstuhl für Softwaretechnik und Programmiersprachen
+  Prof. Dr. Michael Leuschel, Sebastian Krings
+*/
+
+DEFINITIONS
+// a field (x,y) is free
+free(x, y, cur_white, cur_black) == (
+  (x,y) /: dom(cur_white) &
+  (x,y) /: dom(cur_black)
+);
+// find the interval to check for other figures in the way
+in_order_interval(ret,delta,ab,xy) == (
+  (ab/=xy & (ab<xy => ret : (ab+1)..(xy-1) & delta = ret-ab)) &
+  (ab>xy => ret : (xy+1)..(ab-1) & delta = ret-xy)
+);
+// move a black figure from (a,b) to (x,y) and take an opponent if take = 1
+move_black_piece(figure, a, b, x, y, take, cur_white, cur_black) == (
+  (take = 0 => free(x, y, cur_white, cur_black)) &
+  (figure = b_king => move_king(a, b, x, y)) &
+  (figure = b_queen => move_queen(a, b, x, y, cur_white, cur_black)) &
+  (figure = b_rook => move_rook(a, b, x, y, cur_white, cur_black)) &
+  (figure = b_knight => move_knight(a, b, x, y)) &
+  (figure = b_bishop => move_bishop(a, b, x, y, cur_white, cur_black)) &
+  (figure = b_pawn => move_black_pawn(a, b, x, y, take, cur_white, cur_black))
+);
+// move a white figure from (a,b) to (x,y) and take an opponent if take = 1
+move_white_piece(figure, a, b, x, y, take, cur_white, cur_black) == (
+   (take = 0 => free(x, y, cur_white, cur_black)) &
+   (figure = w_king => move_king(a, b, x, y)) &
+   (figure = w_queen => move_queen(a, b, x, y, cur_white, cur_black)) &
+   (figure = w_rook => move_rook(a, b, x, y, cur_white, cur_black)) &
+   (figure = w_knight => move_knight(a, b, x, y)) &
+   (figure = w_bishop => move_bishop(a, b, x, y, cur_white, cur_black)) &
+   (figure = w_pawn => move_white_pawn(a, b, x, y, take, cur_white, cur_black))
+);
+// move the white king form (a,b) to (x,y) and take an opponent if take = 1
+// and opponent is not guarded
+move_king(a, b, x, y) == (
+    x : {a-1,a,a+1} & x : 1..8 &
+    y : {b-1,b,b+1} & y : 1..8
+);
+// move a queen from (a,b) to (x,y)
+move_queen(a, b, x, y, cur_white, cur_black) == (
+  move_rook(a, b, x, y, cur_white, cur_black) or
+  move_bishop(a, b, x, y, cur_white, cur_black)
+);
+// move a rook from (a,b) to (x,y)
+move_rook(a, b, x, y, cur_white, cur_black) == (
+  x : 1..8 & y : 1..8 &
+  ((a=x & !yy.(yy : b+1..y-1 => free(x,yy,cur_white,cur_black))
+    & !yy.(yy : y+1..b-1 => free(x,yy,cur_white,cur_black)))
+  or
+  (b=y & !xx.(xx : a+1..x-1 => free(xx,y,cur_white,cur_black))
+    & !xx.(xx : x+1..a-1 => free(xx,y,cur_white,cur_black))))
+);
+// move a knight from (a,b) to (x,y)
+move_knight(a, b, x, y) == (
+    x : 1..8 & x : {a-1, a-2, a+1, a+2} &
+    y : 1..8 & y : {b-1, b-2, b+1, b+2} &
+    (x : {a-1,a+1} <=> y /: {b-1,b+1})
+);
+// move a bishop from (a,b) to (x,y)
+move_bishop(a, b, x, y, cur_white, cur_black) == (
+  x : 1..8 & y : 1..8 & a /= x & b /= y &
+  (a-x) : {(b-y), (y-b)} &
+  !(xx,yy,deltax,deltay,abs).(
+    (abs : {(x-a), (a-x)} & abs > 0 &
+    in_order_interval(xx,deltax,a,x) &
+    in_order_interval(yy,deltay,b,y)) =>
+      ((((x>a & y>b) or (x<a & y<b)) & deltax = deltay) => free(xx,yy,cur_white,cur_black)) &
+      ((((x>a & y<b) or (x<a & y>b)) & deltax + deltay = abs) => free(xx,yy,cur_white,cur_black)))
+);
+// move a white pawn from (a,b) to (x,y) and respect its
+// special taking behavior
+move_white_pawn(a, b, x, y, take, cur_white, cur_black) == (
+  (take = 0 =>
+    x = a &
+    (b = 2 => y : {3,4} & free(x,3,cur_white,cur_black)) &
+    (b > 2 => y = b+1)) &
+  (take = 1 =>
+    y = b + 1 &
+    x : {a+1, a-1})
+);
+// move a black pawn from (a,b) to (x,y) and respect its
+// special taking behavior
+move_black_pawn(a, b, x, y, take, cur_white, cur_black) == (
+  (take = 0 =>
+    x = a &
+    (b = 7 => y : {5,6} & free(x,6,cur_white,cur_black)) &
+    (b < 7 => y = b-1)) &
+  (take = 1 =>
+    y = b - 1 &
+    x : {a+1, a-1})
+);
+// check if white is not in check given the next board
+not_in_check_white(cur_white, cur_black) == (
+  #(kx,ky).( ((kx,ky),w_king) : cur_white & /* there should always be one position */
+    !(i,j,figureb).(
+      ((i,j),figureb) : cur_black =>
+        not(move_black_piece(figureb, i, j, kx, ky, 1, cur_white, cur_black))))
+);
+// check if black is not in check given the next board
+not_in_check_black(cur_white, cur_black) == (
+  #(kx,ky).( ((kx,ky),b_king) : cur_black & /* there should always be one position */
+    !(i,j,figurew).(
+      ((i,j),figurew) : cur_white =>
+        not(move_white_piece(figurew, i, j, kx, ky, 1, cur_white, cur_black))))
+);
+"LibraryMeta.def";
+Operations == card({i | i : INTEGER & STATE_SUCC(CURRENT_STATE_ID,i)});
+kings == (
+  (IF moving = TRUE THEN
+    (IF Operations = 0 & in_check = TRUE THEN 1 ELSE 0 END) ELSE
+    (IF Operations = 0 & in_check = TRUE THEN -1 ELSE 0 END) END)
+);
+queens(white, black) == (
+  card(white |> {w_queen}) - card(black |> {b_queen})
+);
+rooks(white, black) == (
+  card(white |> {w_rook}) - card(black |> {b_rook})
+);
+bishops_knights(white, black) == (
+  card(white |> {w_bishop,w_knight}) - card(black |> {b_bishop,b_knight})
+);
+pawns(white, black) == (
+  card(white |> {w_pawn}) - card(black |> {b_pawn})
+);
+special_pawns(white, black) == (
+  // backward pawns (white)
+    card({x,y | x : 1..8 & y : 1..8 & ((x,y),w_pawn) : white & y = min({j | j : 1..8 & #(i).(i : 1..8 & ((i,j),w_pawn) : white)})})
+  // isolated pawns (white)
+  + card({x,y | x : 1..8 & y : 1..8 & ((x,y),w_pawn) : white & not(#(i,j).(i : 1..8 & j : 1..8 & i : {y-1, y+1} & ((i,j),w_pawn) : white))})
+  // doubled pawns (white)
+  + card({x,y | x : 1..8 & y : 1..8 & ((x,y),w_pawn) : white & #(i).(i : (1..8) - {y} & ((i,x),w_pawn) : white)})
+  // passed pawns (white)
+  + card({x,y | x : 1..8 & y : 1..8 & ((x,y),w_pawn) : white & not(#(i,j).(i : 1..8 & j : y..8 & i : {x-1, x, x+1}))})
+  // backward pawns (black)
+  - card({x,y | x : 1..8 & y : 1..8 & ((x,y),b_pawn) : black & y = max({j | j : 1..8 & #(i).(i : 1..8 & ((i,j),b_pawn) : black)})})
+  // isolated pawns (black)
+  - card({x,y | x : 1..8 & y : 1..8 & ((x,y),b_pawn) : black & not(#(i,j).(i : 1..8 & j : 1..8 & i : {y-1, y+1} & ((i,j),b_pawn) : black))})
+  // doubled pawns (black)
+  - card({x,y | x : 1..8 & y : 1..8 & ((x,y),b_pawn) : black & #(i).(i : (1..8) - {y} & ((i,x),b_pawn) : black)})
+  // passed pawns (black)
+  - card({x,y | x : 1..8 & y : 1..8 & ((x,y),b_pawn) : black & not(#(i,j).(i : 1..8 & j : 1..y & i : {x-1, x, x+1}))})
+);
+// attack on adjacent king fields
+adjacent_king_fields(white, black) == (
+  card({a,b,figure | a : 1..8 & b : 1..8 & figure : ran(black) &
+    #(i,j,x,y,take).(i : 1..8 & j : 1..8 & ((i,j),w_king) : white &
+    x : 1..8 & y : 1..8 & x : {i-1,i,i+1} & x : {j-1,j,j+1} & take : {0,1} & (x,y) /= (i,j) &
+    move_black_piece(figure,a,b,x,y,take,white,black))}) -
+  card({a,b,figure | a : 1..8 & b : 1..8 & figure : ran(white) &
+    #(i,j,x,y,take).(i : 1..8 & j : 1..8 & ((i,j),b_king) : black &
+    x : 1..8 & y : 1..8 & x : {i-1,i,i+1} & y : {j-1,j,j+1} & take : {0,1} & (x,y) /= (i,j) &
+    move_white_piece(figure,a,b,x,y,take,white,black))})
+);
+// check for semi open files
+semi_open_files(white, black) == (
+  card({x,y | x : 1..8 & y : 1..8 & ((x,y), w_rook) : white &
+    card({i | i : (1..8) - {y} & move_white_piece(w_rook,x,y,x,i,0,white,black)}) >= 5 or
+    card({i | i : (1..8) - {x} & move_white_piece(w_rook,x,y,i,y,0,white,black)}) >= 5}) -
+  card({x,y | x : 1..8 & y : 1..8 & ((x,y), b_rook) : black &
+    card({i | i : (1..8) - {y} & move_black_piece(b_rook,x,y,x,i,0,white,black)}) >= 5 or
+    card({i | i : (1..8) - {x} & move_black_piece(b_rook,x,y,i,y,0,white,black)}) >= 5})
+);
+// evaluate (factor for special_pawns and moves need to be find by tests)
+evaluate(white_value, black_value) == (
+  LET n_white, n_black BE n_white = white_value & n_black = black_value IN
+    200 * kings // # white kings - # black kings
+    + 9 * queens(white, black) // # white queens - # black queens
+    + 5 * rooks(white, black) // # white rooks - # black rooks
+    + 3 * bishops_knights(white, black) // # white bishops and knights - # black bishops and knights
+    + 1 * pawns(white, black) // # white pawns - # black pawns
+    + 1 * special_pawns(white, black) // # doubled, isolated and backward white pawns - # doubled, isolated and backward black pawns
+    + 2 * semi_open_files(white, black) // # open files white - # open files black (at least 5 fields to move into one direction)
+    + 2 * adjacent_king_fields(white, black) // attack on white - black kings adjacent fields
+  END
+)
